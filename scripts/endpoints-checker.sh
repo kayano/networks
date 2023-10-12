@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -u
+set -uo pipefail
 ${TRACE:+set -x}
 
 CHAIN_FILE=$1

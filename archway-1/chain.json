@@ -280,6 +280,10 @@
         "provider": "Archway Foundation"
       },
       {
+        "address": "archway-mainnet.grpc.l0vd.com:80",
+        "provider": "L0vd.com"
+      },
+      {
         "address": "grpc-archway.mainnet.validatrium.club:27490",
         "provider": "Validatrium"
       }
