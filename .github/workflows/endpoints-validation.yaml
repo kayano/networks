@@ -33,6 +33,7 @@ jobs:
           declare -i result=0
           paths=(${{ steps.filter.outputs.chain_files }})
           for path in "${paths[@]}"; do
+              echo "Checking $path" >&2
               $(scripts/endpoints-checker.sh $path)
               result=$(($result+$?))
           done
