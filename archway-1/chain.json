@@ -276,6 +276,10 @@
         "provider": "MZONDER"
       },
       {
+        "address": "grpc.mainnet.archway.io:443",
+        "provider": "Archway Foundation"
+      },
+      {
         "address": "grpc-archway.mainnet.validatrium.club:27490",
         "provider": "Validatrium"
       }

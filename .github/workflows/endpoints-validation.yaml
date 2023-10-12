@@ -17,8 +17,15 @@ jobs:
             chain:
               - added|modified: '**/chain.json'
       - uses: actions/checkout@v4
+        if: ${{ steps.filter.outputs.chain_files != null }}
         with:
           fetch-depth: 0
+      - name: Install grpcurl
+        if: ${{ steps.filter.outputs.chain_files != null }}
+        uses: jaxxstorm/action-install-gh-release@v1
+        with:
+          repo: fullstorydev/grpcurl
+          tag: v1.8.8
       - name: Validate changed endpoints
         if: ${{ steps.filter.outputs.chain_files != null }}
         shell: bash {0}
@@ -30,6 +37,5 @@ jobs:
               result=$(($result+$?))
           done
           if [[ "$result" -gt 0 ]]; then
-              echo "Error: Some changed endpoints are not working properly" >&2
               exit 1
           fi
