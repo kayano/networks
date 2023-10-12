@@ -66,7 +66,7 @@ check_endpoint() {
     esac
 }
 
-changed_endpoints=($(git diff $CHAIN_FILE | grep '^\+\s*"address"' | sed -n 's/^.*"\(.*\)".*$/\1/p'))
+changed_endpoints=($(git diff main $CHAIN_FILE | grep '^\+\s*"address"' | sed -n 's/^.*"\(.*\)".*$/\1/p'))
 
 declare -i result=0
 for endpoint in "${changed_endpoints[@]}"; do
