@@ -17,6 +17,8 @@ jobs:
             chain:
               - added|modified: '**/chain.json'
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Validate changed endpoints
         if: ${{ steps.filter.outputs.chain_files != null }}
         shell: bash {0}
