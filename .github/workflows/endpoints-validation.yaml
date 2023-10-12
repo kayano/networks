@@ -1,0 +1,33 @@
+---
+name: Validate endpoints
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  EndpointsValidation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: dorny/paths-filter@v2
+        id: filter
+        with:
+          list-files: shell
+          filters: |
+            chain:
+              - added|modified: '**/chain.json'
+      - uses: actions/checkout@v4
+      - name: Validate changed endpoints
+        if: ${{ steps.filter.outputs.chain_files != null }}
+        shell: bash {0}
+        run: |
+          declare -i result=0
+          paths=(${{ needs.changes.outputs.chain_files }})
+          for path in "${paths[@]}"; do
+              $(scripts/endpoints-checker.sh $path)
+              result=$(($result+$?))
+          done
+          if [[ "$result" -gt 0 ]]; then
+              echo "Error: Some changed endpoints are not working properly" >&2
+              exit 1
+          fi
